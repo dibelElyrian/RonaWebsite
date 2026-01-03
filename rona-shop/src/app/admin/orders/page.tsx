@@ -19,6 +19,7 @@ interface Order {
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [processingId, setProcessingId] = useState<number | null>(null)
 
   const fetchOrders = async () => {
     setLoading(true)
@@ -43,16 +44,18 @@ export default function AdminOrders() {
   }, [])
 
   const updateStatus = async (id: number, newStatus: string) => {
+    setProcessingId(id)
     const { error } = await supabase
       .from('orders')
       .update({ status: newStatus })
       .eq('id', id)
 
     if (error) {
-      alert('Error updating order')
+      alert('Error updating order: ' + error.message)
     } else {
       fetchOrders()
     }
+    setProcessingId(null)
   }
 
   return (
@@ -88,15 +91,17 @@ export default function AdminOrders() {
                         <>
                           <button 
                             onClick={() => updateStatus(order.id, 'completed')}
-                            className="text-xs text-green-600 hover:text-green-900 border border-green-600 rounded px-2 py-1"
+                            disabled={processingId === order.id}
+                            className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Complete
+                            {processingId === order.id ? 'Processing...' : 'Complete'}
                           </button>
                           <button 
                             onClick={() => updateStatus(order.id, 'cancelled')}
-                            className="text-xs text-red-600 hover:text-red-900 border border-red-600 rounded px-2 py-1"
+                            disabled={processingId === order.id}
+                            className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Cancel
+                            {processingId === order.id ? 'Processing...' : 'Cancel'}
                           </button>
                         </>
                       )}

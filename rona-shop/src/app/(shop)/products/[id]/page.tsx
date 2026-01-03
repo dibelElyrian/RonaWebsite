@@ -16,8 +16,9 @@ async function getProduct(id: string) {
   return product
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await getProduct(params.id)
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const product = await getProduct(id)
 
   if (!product) {
     notFound()
@@ -50,7 +51,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
 
             <div className="mt-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-gray-900">${product.price}</p>
+              <p className="text-3xl text-gray-900">₱{product.price.toLocaleString()}</p>
             </div>
 
             <div className="mt-6">
@@ -73,7 +74,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
               </div>
             </div>
 
-            <div className="mt-10 flex sm:flex-col1">
+            <div className="mt-10 flex sm:flex-col">
               {product.status === 'available' ? (
                 <ReservationForm productId={product.id} productTitle={product.title} />
               ) : (

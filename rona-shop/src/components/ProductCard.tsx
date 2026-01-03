@@ -36,7 +36,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <p className="mt-1 text-lg font-medium text-gray-900">{product.title}</p>
       <div className="flex justify-between items-center mt-1">
         <p className="text-sm text-gray-500">Size {product.size}</p>
-        <p className="text-lg font-bold text-indigo-600">${product.price}</p>
+        <p className="text-lg font-bold text-indigo-600">₱{product.price.toLocaleString()}</p>
       </div>
       <p className="text-xs text-gray-500 mt-1">Condition: {product.condition}</p>
     </Link>

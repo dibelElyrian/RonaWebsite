@@ -18,6 +18,7 @@ interface Product {
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+  const [processingId, setProcessingId] = useState<number | null>(null)
 
   const fetchProducts = async () => {
     setLoading(true)
@@ -41,19 +42,22 @@ export default function AdminDashboard() {
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this item?')) return
 
+    setProcessingId(id)
     const { error } = await supabase
       .from('products')
       .delete()
       .eq('id', id)
 
     if (error) {
-      alert('Error deleting product')
+      alert('Error deleting product: ' + error.message)
     } else {
       fetchProducts()
     }
+    setProcessingId(null)
   }
 
   const handleStatusChange = async (id: number, newStatus: string) => {
+    setProcessingId(id)
     const { error } = await supabase
       .from('products')
       .update({ status: newStatus })
@@ -64,6 +68,7 @@ export default function AdminDashboard() {
     } else {
       fetchProducts()
     }
+    setProcessingId(null)
   }
 
   return (
@@ -98,7 +103,7 @@ export default function AdminDashboard() {
                     }`}>
                       {product.status}
                     </span>
-                    <p className="text-sm text-gray-900 font-bold">${product.price}</p>
+                    <p className="text-sm text-gray-900 font-bold">₱{product.price.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="mt-2 sm:flex sm:justify-between">
@@ -107,18 +112,24 @@ export default function AdminDashboard() {
                       Condition: {product.condition}
                     </p>
                   </div>
-                  <div className="mt-2 flex items-center text-sm sm:mt-0 space-x-2">
+                  <div className="mt-2 flex items-center text-sm sm:mt-0 space-x-3">
                     <button 
                       onClick={() => handleStatusChange(product.id, product.status === 'available' ? 'sold' : 'available')}
-                      className="text-indigo-600 hover:text-indigo-900"
+                      disabled={processingId === product.id}
+                      className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                        product.status === 'available' 
+                          ? 'text-yellow-800 bg-yellow-100 hover:bg-yellow-200 focus:ring-yellow-500' 
+                          : 'text-green-800 bg-green-100 hover:bg-green-200 focus:ring-green-500'
+                      }`}
                     >
-                      {product.status === 'available' ? 'Mark Sold' : 'Mark Available'}
+                      {processingId === product.id ? 'Updating...' : (product.status === 'available' ? 'Mark Sold' : 'Mark Available')}
                     </button>
                     <button 
                       onClick={() => handleDelete(product.id)}
-                      className="text-red-600 hover:text-red-900"
+                      disabled={processingId === product.id}
+                      className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Delete
+                      {processingId === product.id ? 'Deleting...' : 'Delete'}
                     </button>
                   </div>
                 </div>

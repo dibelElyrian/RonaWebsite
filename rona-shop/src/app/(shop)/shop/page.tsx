@@ -42,9 +42,10 @@ async function getFilteredProducts(searchParams: { [key: string]: string | strin
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const products = await getFilteredProducts(searchParams)
+  const resolvedSearchParams = await searchParams
+  const products = await getFilteredProducts(resolvedSearchParams)
 
   return (
     <div className="bg-white">
