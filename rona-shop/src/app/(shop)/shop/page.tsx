@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import ProductCard from '@/components/ProductCard'
 import ProductFilters from '@/components/ProductFilters'
+import { Suspense } from 'react'
 
 // Revalidate every 60 seconds
 export const revalidate = 60
@@ -58,7 +59,9 @@ export default async function ShopPage({
         <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           {/* Filters (Sidebar on Desktop) */}
           <aside className="hidden lg:block">
-            <ProductFilters />
+            <Suspense fallback={<div>Loading filters...</div>}>
+              <ProductFilters />
+            </Suspense>
           </aside>
 
           {/* Product Grid */}
@@ -75,7 +78,9 @@ export default async function ShopPage({
                     </span>
                  </summary>
                  <div className="mt-4 px-4 py-4 bg-gray-50 rounded-lg border border-gray-200">
-                   <ProductFilters />
+                   <Suspense fallback={<div>Loading filters...</div>}>
+                     <ProductFilters />
+                   </Suspense>
                  </div>
                </details>
             </div>
