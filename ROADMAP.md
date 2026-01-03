@@ -16,28 +16,34 @@ This document outlines the development roadmap for Rona's Shoe Thrift Shop websi
 - [ ] Connect repository to Netlify for continuous deployment
 
 ## Phase 2: The "Manager" (Admin Side)
-- [ ] Build Admin Login page (Supabase Auth)
-- [ ] Develop Inventory Manager
-    - [ ] Form to upload images (Drag & Drop)
-    - [ ] Input fields: Brand, Size, Condition, Price, Cost
-    - [ ] Save product data to Supabase
-- [ ] Create Inventory List View (Edit/Delete/Mark Sold)
+- [x] Build Admin Login page (Supabase Auth)
+- [x] Develop Inventory Manager
+    - [x] Form to upload images (Drag & Drop)
+    - [x] Input fields: Brand, Size, Condition, Price, Cost
+    - [x] Save product data to Supabase
+- [x] Create Inventory List View (Edit/Delete/Mark Sold)
 
 ## Phase 3: The Storefront (Public Side)
-- [ ] Build "Fresh Drops" / New Arrivals Feed
-- [ ] Implement Smart Filters
-    - [ ] Filter by Size (US/UK/EU)
-    - [ ] Filter by Brand
-    - [ ] Filter by Condition
-- [ ] Create Product Detail Page
-    - [ ] High-res image gallery
-    - [ ] Condition Rating display
-    - [ ] "Reserve" / "Buy" action
+- [x] Build "Fresh Drops" / New Arrivals Feed
+- [x] Implement Smart Filters
+    - [x] Filter by Size (US/UK/EU)
+    - [x] Filter by Brand
+    - [x] Filter by Condition
+- [x] Create Product Detail Page
+    - [x] High-res image gallery
+    - [x] Condition Rating display
+    - [x] "Reserve" / "Buy" action
 
 ## Phase 4: Transaction & Launch
-- [ ] Implement Checkout/Reservation flow
-- [ ] Mobile responsiveness check and UI polish
-- [ ] Final Launch on Netlify subdomain
+- [x] Implement Checkout/Reservation flow
+    - [x] Create Orders table in Supabase
+    - [x] Build Reservation Modal
+    - [x] Build Admin Orders View
+- [x] Mobile responsiveness check and UI polish
+    - [x] Mobile Navigation (Hamburger Menu)
+    - [x] Mobile Filters (Collapsible)
+    - [x] Responsive Product Grid (2 columns on mobile)
+- [x] Final Launch on Netlify subdomain
 
 ## Future Ideas
 - [ ] Payment Integration (Stripe)
