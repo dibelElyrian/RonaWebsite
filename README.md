@@ -37,3 +37,8 @@ This website serves two main purposes:
 
 ## Roadmap
 See [ROADMAP.md](./ROADMAP.md) for the detailed development plan.
+
+### Upcoming Features
+- **Compliance:** Privacy Policy, Terms of Service, and Thrift Disclaimers.
+- **Admin Efficiency:** Profit Tracker, Waybill Generator, and Social Media Caption Generator.
+- **Customer Experience:** Messenger Chat, Size Guide, "Steal Price" Section, and Stock Alerts.

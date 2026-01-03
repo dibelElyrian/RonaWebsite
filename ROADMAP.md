@@ -45,6 +45,29 @@ This document outlines the development roadmap for Rona's Shoe Thrift Shop websi
     - [x] Responsive Product Grid (2 columns on mobile)
 - [x] Final Launch on Netlify subdomain
 
-## Future Ideas
-- [ ] Payment Integration (Stripe)
-- [ ] Social Media auto-posting when new items drop
+## Phase 5: Compliance & Trust
+- [x] Create `Privacy Policy` and `Terms of Service` pages (Data Privacy Act compliance).
+- [x] Add "Thrift/Pre-loved" disclaimer to Footer and Product pages.
+- [x] Update Reservation success message with specific GCash payment instructions.
+
+## Phase 6: Business Efficiency (Admin Tools)
+- [x] **Social Media Caption Generator:** One-click copy for FB/IG captions.
+- [x] **Profit & Expense Tracker:** Analytics tab for Sales vs Cost.
+- [x] **Waybill Generator:** Print labels for shipping.
+
+## Phase 7: Onboarding & Education (Guides)
+- [x] **Admin Onboarding:** Interactive tour for first-time admin login (Flow & Features).
+- [x] **Customer Onboarding:** "How to Buy" popup/tour for new visitors.
+- [x] **Help/FAQ Section:** Guide for common questions (Size, Payment, Shipping).
+- [x] **"Show Tutorial" Button:** Persistent help button to replay the guides.
+
+## Phase 8: Customer Experience & Localization
+- [ ] **Messenger Chat Plugin:** Direct inquiry bubble.
+- [ ] **"Steal Price" Section:** Filter for budget items (<₱1,000).
+- [ ] **Size Guide & CM Search:** Conversion charts and CM filtering.
+- [ ] **Social Proof:** "Flex Your Kicks" section.
+- [ ] **Mobile Optimization:** Performance tuning for mobile data.
+
+## Phase 9: Advanced Automation
+- [ ] **Stock Alerts:** Email notifications.
+- [ ] **Auto-Posting:** Automatically post new drops to Social Media.

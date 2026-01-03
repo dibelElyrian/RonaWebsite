@@ -11,7 +11,8 @@ export default function ReservationForm({ productId, productTitle }: { productId
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    address: ''
   })
   const router = useRouter()
 
@@ -25,13 +26,14 @@ export default function ReservationForm({ productId, productTitle }: { productId
         p_product_id: productId,
         p_customer_name: formData.name,
         p_customer_email: formData.email,
-        p_customer_phone: formData.phone
+        p_customer_phone: formData.phone,
+        p_customer_address: formData.address
       })
 
       if (error) throw error
 
       await revalidateShop(productId)
-      alert('Reservation successful! We will contact you shortly.')
+      alert('Reservation successful! \n\nTo secure your order, please send payment via GCash to 09XX-XXX-XXXX and send the proof of payment to our Facebook Page within 24 hours.')
       setIsOpen(false)
       router.refresh()
       
@@ -99,6 +101,17 @@ export default function ReservationForm({ productId, productTitle }: { productId
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Shipping Address</label>
+                        <textarea
+                          required
+                          rows={3}
+                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
+                          value={formData.address}
+                          onChange={(e) => setFormData({...formData, address: e.target.value})}
+                          placeholder="House No., Street, Barangay, City, Province"
                         />
                       </div>
                       <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">

@@ -86,6 +86,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 </button>
               )}
             </div>
+
+            <div className="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
+               <p className="text-xs text-gray-500">
+                 <strong>Thrift Disclaimer:</strong> This item is pre-loved/second-hand. Please review photos carefully. Authenticity is not guaranteed unless stated.
+               </p>
+            </div>
             
             <div className="mt-6 text-center">
                <Link href="/" className="text-indigo-600 hover:text-indigo-500 font-medium">

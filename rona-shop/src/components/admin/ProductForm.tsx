@@ -9,6 +9,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded: () => 
   const [brand, setBrand] = useState('')
   const [size, setSize] = useState('')
   const [price, setPrice] = useState('')
+  const [cost, setCost] = useState('')
   const [condition, setCondition] = useState('Good')
   const [imageFile, setImageFile] = useState<File | null>(null)
 
@@ -47,6 +48,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded: () => 
             brand,
             size: parseFloat(size),
             price: parseFloat(price),
+            cost_price: parseFloat(cost) || 0,
             condition,
             images: imageUrls,
             status: 'available'
@@ -60,6 +62,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded: () => 
       setBrand('')
       setSize('')
       setPrice('')
+      setCost('')
       setImageFile(null)
       onProductAdded()
       alert('Product added successfully!')
@@ -73,7 +76,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded: () => 
 
   return (
     <div className="bg-white p-6 rounded-lg shadow mb-8">
-      <h2 className="text-xl font-semibold mb-4">Add New Shoe</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Shoe</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="col-span-2">
           <label className="block text-sm font-medium text-gray-700">Title</label>
@@ -121,6 +124,17 @@ export default function ProductForm({ onProductAdded }: { onProductAdded: () => 
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder="2500.00"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Cost (₱) <span className="text-xs text-gray-500">(Hidden from customers)</span></label>
+          <input
+            type="number"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2 text-gray-900"
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
+            placeholder="1500.00"
           />
         </div>
 
