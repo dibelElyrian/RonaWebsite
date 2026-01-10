@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react'
 
+declare global {
+  interface Window {
+    fbAsyncInit: () => void;
+  }
+}
+
 export default function FacebookMsg() {
   useEffect(() => {
     // Inject FB SDK
