@@ -1,7 +1,6 @@
 'use client'
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { toast } from 'react-hot-toast' // We will need to add react-hot-toast or simple alert
 
 // We'll use a simple alert/toast system if hot-toast isn't installed, 
 // but for cleaner code assuming simple alerts for now or I can add a toast provider later.
