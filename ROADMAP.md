@@ -62,12 +62,14 @@ This document outlines the development roadmap for Rona's Shoe Thrift Shop websi
 - [x] **"Show Tutorial" Button:** Persistent help button to replay the guides.
 
 ## Phase 8: Customer Experience & Localization
-- [ ] **Messenger Chat Plugin:** Direct inquiry bubble.
-- [ ] **"Steal Price" Section:** Filter for budget items (<₱1,000).
-- [ ] **Size Guide & CM Search:** Conversion charts and CM filtering.
-- [ ] **Social Proof:** "Flex Your Kicks" section.
-- [ ] **Mobile Optimization:** Performance tuning for mobile data.
+- [x] **Messenger Chat Plugin:** Direct inquiry bubble.
+- [x] **"Steal Price" Section:** Filter for budget items (<₱1,000).
+- [x] **Size Guide & CM Search:** Conversion charts and CM filtering.
+- [x] **Social Proof:** "Flex Your Kicks" section.
+- [x] **Mobile Optimization:** Performance tuning for mobile data.
+- [x] **Customer Feedback:** Form for users to provide feedback on the website experience.
 
-## Phase 9: Advanced Automation
+## Future implementation
 - [ ] **Stock Alerts:** Email notifications.
-- [ ] **Auto-Posting:** Automatically post new drops to Social Media.
+- [ ] **Data & Social Automation:** Automatically post new drops to Social Media.
+- [ ] **Database Normalization:** Refactor `orders` table into `orders` (header) and `order_items` (lines) to handle multi-item checkouts more robustly and enforce strict database-level unique constraints on payment references.

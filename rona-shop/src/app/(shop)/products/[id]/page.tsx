@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import ReservationForm from '@/components/ReservationForm'
+import AddToCartButton from '@/components/AddToCartButton'
 
 // Revalidate every 60 seconds
 export const revalidate = 60
@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
             <div className="mt-10 flex sm:flex-col">
               {product.status === 'available' ? (
-                <ReservationForm productId={product.id} productTitle={product.title} />
+                <AddToCartButton product={product} />
               ) : (
                 <button
                   disabled

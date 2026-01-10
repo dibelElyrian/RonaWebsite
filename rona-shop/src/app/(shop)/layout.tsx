@@ -1,5 +1,7 @@
 import Navbar from '@/components/Navbar'
 import CustomerTutorial from '@/components/CustomerTutorial'
+import ShopContextWrapper from '@/components/ShopContextWrapper'
+import CartDrawer from '@/components/CartDrawer'
 
 export default function ShopLayout({
   children,
@@ -7,13 +9,15 @@ export default function ShopLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-white">
-      <CustomerTutorial />
-      <Navbar />
-      <main>
-        {children}
-      </main>
-      <footer className="bg-gray-50 border-t border-gray-200 mt-12">
+    <ShopContextWrapper>
+      <div className="min-h-screen bg-white">
+        <CustomerTutorial />
+        <Navbar />
+        <CartDrawer />
+        <main>
+          {children}
+        </main>
+        <footer className="bg-gray-50 border-t border-gray-200 mt-12">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center space-x-6 mb-4">
             <a href="/faq" className="text-sm text-gray-500 hover:text-gray-900">
@@ -25,6 +29,9 @@ export default function ShopLayout({
             <a href="/privacy" className="text-sm text-gray-500 hover:text-gray-900">
               Privacy Policy
             </a>
+            <a href="/feedback" className="text-sm text-gray-500 hover:text-gray-900">
+              Leave a Review
+            </a>
           </div>
           <p className="text-center text-xs text-gray-400 mb-4 max-w-2xl mx-auto">
             Disclaimer: Rona's Shop is a thrift store. Items are pre-loved/second-hand and are not guaranteed authentic unless explicitly stated. All product names, logos, and brands are property of their respective owners.
@@ -34,6 +41,7 @@ export default function ShopLayout({
           </p>
         </div>
       </footer>
-    </div>
+      </div>
+    </ShopContextWrapper>
   )
 }

@@ -13,6 +13,11 @@ This website serves two main purposes:
 - **Backend:** [Supabase](https://supabase.com/) (Database, Auth, Storage)
 - **Deployment:** [Netlify](https://www.netlify.com/)
 
+## Development Guidelines
+
+### UI & UX Standards
+*   **Clear Fonts Required:** All forms, inputs, and primary content must use clear, high-contrast fonts. Avoid light gray text (`text-gray-500` or lighter) for critical reading fields like input values or labels. Prefer `text-gray-900` or `font-semibold` to ensuring readability across all devices.
+
 ## Getting Started
 
 ### Prerequisites
@@ -39,6 +44,15 @@ This website serves two main purposes:
 See [ROADMAP.md](./ROADMAP.md) for the detailed development plan.
 
 ### Upcoming Features
-- **Compliance:** Privacy Policy, Terms of Service, and Thrift Disclaimers.
-- **Admin Efficiency:** Profit Tracker, Waybill Generator, and Social Media Caption Generator.
-- **Customer Experience:** Messenger Chat, Size Guide, "Steal Price" Section, and Stock Alerts.
+- **User Experience:** "Add to Cart" animations & Improved Checkout Wizard.
+- **Admin Tools:** Enhanced Order Search & filtering.
+
+## Recent Updates (Jan 2026)
+- **Checkout Wizard:** New 2-step checkout process with auto-save for shipping details.
+- **Strict Validation:** 
+  - **Mobile:** Enforced `09xxxxxxxxx` (11 digits) format.
+  - **GCash:** Enforced 13-digit numeric only reference validation.
+- **UX Improvements:**
+  - **Cart:** Non-intrusive "Added to Cart" feedback (removed annoying drawer popup).
+  - **Admin:** Added Search Bar for Orders (supports Name, Email, Ref No.).
+  - **Payment:** Expandable QR Code ("Lightbox") for easier scanning.

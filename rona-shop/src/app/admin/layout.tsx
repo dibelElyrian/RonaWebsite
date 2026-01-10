@@ -71,6 +71,9 @@ export default function AdminLayout({
             <Link href="/admin/analytics" className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md font-medium">
               Analytics
             </Link>
+            <Link href="/admin/feedback" className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md font-medium">
+              Feedback
+            </Link>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('openAdminTutorial'))}
               className="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md font-medium"
@@ -102,6 +105,9 @@ export default function AdminLayout({
           </Link>
           <Link href="/admin/analytics" className={`block px-6 py-3 hover:bg-gray-50 hover:text-indigo-600 ${pathname === '/admin/analytics' ? 'text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600' : 'text-gray-700'}`}>
             Analytics
+          </Link>
+          <Link href="/admin/feedback" className={`block px-6 py-3 hover:bg-gray-50 hover:text-indigo-600 ${pathname === '/admin/feedback' ? 'text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600' : 'text-gray-700'}`}>
+            Feedback
           </Link>
           <button 
             onClick={() => window.dispatchEvent(new CustomEvent('openAdminTutorial'))}

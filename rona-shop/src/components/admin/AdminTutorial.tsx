@@ -16,8 +16,8 @@ export default function AdminTutorial() {
       content: "The 'Inventory' tab is your main workspace. Add new products, upload photos, and use the AI Caption Generator to write posts for Instagram.",
     },
     {
-      title: "Track Orders 📝",
-      content: "Check the 'Orders' tab to see new reservations from customers. You can mark them as paid or shipped.",
+      title: "Track & Search Orders 📝",
+      content: "Check the 'Orders' tab to see new reservations. Use the Search Bar to quickly find orders by Name, Email, or GCash Reference No.",
     },
     {
       title: "Business Analytics 📈",

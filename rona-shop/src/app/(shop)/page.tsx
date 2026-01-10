@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import ProductCard from '@/components/ProductCard'
+import SocialProof from '@/components/SocialProof'
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60
@@ -61,6 +62,9 @@ export default async function Home() {
           </div>
         )}
       </div>
+
+      {/* Social Proof Section */}
+      <SocialProof />
     </div>
   )
 }

@@ -29,6 +29,10 @@ async function getFilteredProducts(searchParams: { [key: string]: string | strin
     query = query.in('condition', conditions)
   }
 
+  if (searchParams.maxPrice) {
+    query = query.lte('price', parseInt(searchParams.maxPrice as string))
+  }
+
   const { data: products, error } = await query
   
   if (error) {

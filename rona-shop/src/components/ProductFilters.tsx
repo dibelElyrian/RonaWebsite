@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import SizeGuide from './SizeGuide'
 
 const SIZES = [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 13]
 const BRANDS = ['Nike', 'Adidas', 'Jordan', 'New Balance', 'Converse', 'Vans', 'Other']
@@ -14,19 +15,23 @@ export default function ProductFilters() {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([])
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
   const [selectedConditions, setSelectedConditions] = useState<string[]>([])
+  const [stealPrice, setStealPrice] = useState(false)
 
   useEffect(() => {
     // Sync state with URL params on load
     const sizeParam = searchParams.get('size')
     const brandParam = searchParams.get('brand')
     const conditionParam = searchParams.get('condition')
+    const maxPriceParam = searchParams.get('maxPrice')
 
     if (sizeParam) setSelectedSizes(sizeParam.split(','))
     if (brandParam) setSelectedBrands(brandParam.split(','))
     if (conditionParam) setSelectedConditions(conditionParam.split(','))
+    if (maxPriceParam === '1000') setStealPrice(true)
+    else setStealPrice(false)
   }, [searchParams])
 
-  const updateFilters = (type: 'size' | 'brand' | 'condition', value: string) => {
+  const updateFilters = (type: 'size' | 'brand' | 'condition' | 'stealPrice', value: string | boolean) => {
     let newValues: string[] = []
     let currentValues: string[] = []
     
@@ -34,16 +39,19 @@ export default function ProductFilters() {
     if (type === 'brand') currentValues = selectedBrands
     if (type === 'condition') currentValues = selectedConditions
 
-    if (currentValues.includes(value)) {
-      newValues = currentValues.filter(v => v !== value)
-    } else {
-      newValues = [...currentValues, value]
+    if (type !== 'stealPrice') {
+        if (currentValues.includes(value as string)) {
+          newValues = currentValues.filter(v => v !== value)
+        } else {
+          newValues = [...currentValues, value as string]
+        }
     }
 
     // Update state
     if (type === 'size') setSelectedSizes(newValues)
     if (type === 'brand') setSelectedBrands(newValues)
     if (type === 'condition') setSelectedConditions(newValues)
+    if (type === 'stealPrice') setStealPrice(value as boolean)
 
     // Update URL
     const params = new URLSearchParams(searchParams.toString())
@@ -55,7 +63,7 @@ export default function ProductFilters() {
     }
 
     if (type === 'size') updateParam('size', newValues)
-    else updateParam('size', selectedSizes) // Keep existing if not changing
+    else updateParam('size', selectedSizes) 
 
     if (type === 'brand') updateParam('brand', newValues)
     else updateParam('brand', selectedBrands)
@@ -63,12 +71,40 @@ export default function ProductFilters() {
     if (type === 'condition') updateParam('condition', newValues)
     else updateParam('condition', selectedConditions)
 
+    if (type === 'stealPrice') {
+        if (value) params.set('maxPrice', '1000')
+        else params.delete('maxPrice')
+    } else {
+         if (stealPrice) params.set('maxPrice', '1000')
+    }
+
     router.push(`/shop?${params.toString()}`)
   }
 
   return (
     <div className="space-y-8">
+      {/* Steal Price Filter */}
+      <div>
+         <h3 className="text-sm font-medium text-gray-900">Deals</h3>
+         <div className="mt-4">
+            <div className="flex items-center">
+              <input
+                id="steal-price"
+                name="steal-price"
+                type="checkbox"
+                checked={stealPrice}
+                onChange={(e) => updateFilters('stealPrice', e.target.checked)}
+                className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="steal-price" className="ml-3 text-sm font-bold text-red-600">
+                🔥 Steal Price (&lt; ₱1,000)
+              </label>
+            </div>
+         </div>
+      </div>
+
       {/* Brand Filter */}
+
       <div>
         <h3 className="text-sm font-medium text-gray-900">Brand</h3>
         <div className="mt-4 space-y-2">
@@ -92,7 +128,10 @@ export default function ProductFilters() {
 
       {/* Size Filter */}
       <div>
-        <h3 className="text-sm font-medium text-gray-900">Size (US)</h3>
+        <div className="flex items-center justify-between">
+           <h3 className="text-sm font-medium text-gray-900">Size (US)</h3>
+           <SizeGuide />
+        </div>
         <div className="mt-4 grid grid-cols-3 gap-2">
           {SIZES.map((size) => (
             <button

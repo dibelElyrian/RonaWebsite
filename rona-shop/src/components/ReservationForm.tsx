@@ -12,7 +12,8 @@ export default function ReservationForm({ productId, productTitle }: { productId
     name: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    paymentReference: ''
   })
   const router = useRouter()
 
@@ -27,18 +28,19 @@ export default function ReservationForm({ productId, productTitle }: { productId
         p_customer_name: formData.name,
         p_customer_email: formData.email,
         p_customer_phone: formData.phone,
-        p_customer_address: formData.address
+        p_customer_address: formData.address,
+        p_payment_reference: formData.paymentReference
       })
 
       if (error) throw error
 
       await revalidateShop(productId)
-      alert('Reservation successful! \n\nTo secure your order, please send payment via GCash to 09XX-XXX-XXXX and send the proof of payment to our Facebook Page within 24 hours.')
+      alert('Order successful! \n\nWe have received your order and payment reference. We will verify the payment and process your shipping soon.')
       setIsOpen(false)
       router.refresh()
       
     } catch (error: any) {
-      alert('Error processing reservation: ' + error.message)
+      alert('Error processing order: ' + error.message)
     } finally {
       setLoading(false)
     }
@@ -50,7 +52,7 @@ export default function ReservationForm({ productId, productTitle }: { productId
         onClick={() => setIsOpen(true)}
         className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
       >
-        Reserve Now
+        Buy Now
       </button>
     )
   }
@@ -66,13 +68,42 @@ export default function ReservationForm({ productId, productTitle }: { productId
               <div className="sm:flex sm:items-start">
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                    Reserve {productTitle}
+                    Order {productTitle}
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500 mb-4">
-                      Please provide your details. We will hold this item for 24 hours.
-                    </p>
+                    <div className="mt-4 mb-6 border-b pb-6">
+                       <p className="text-sm font-medium text-gray-700 mb-2 text-center">Scan to Pay via GCash</p>
+                       <div className="flex justify-center mb-2">
+                          <div className="relative w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
+                             <img 
+                                src="/gcash-qr.jpg" 
+                                alt="GCash QR Code" 
+                                className="object-contain w-full h-full"
+                                onError={(e) => {
+                                   e.currentTarget.style.display = 'none';
+                                   e.currentTarget.parentElement!.innerText = 'QR Code Image Missing'
+                                }}
+                             />
+                          </div>
+                       </div>
+                       <p className="text-xs text-gray-500 text-center">
+                          Scan the QR code above and pay the exact amount. <br/> 
+                          Copy the reference number from your receipt.
+                       </p>
+                    </div>
+
                     <form onSubmit={handleSubmit} className="space-y-4">
+                      <div>
+                          <label className="block text-sm font-medium text-gray-700">GCash Reference No.</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. 9876543210"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
+                            value={formData.paymentReference}
+                            onChange={(e) => setFormData({...formData, paymentReference: e.target.value})}
+                          />
+                      </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700">Name</label>
                         <input
@@ -120,7 +151,7 @@ export default function ReservationForm({ productId, productTitle }: { productId
                           disabled={loading}
                           className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          {loading ? 'Processing...' : 'Confirm Reservation'}
+                          {loading ? 'Processing...' : 'Submit Order'}
                         </button>
                         <button
                           type="button"

@@ -12,12 +12,12 @@ const steps = [
     content: "Use the filters to search by Size, Brand, or Condition. Since items are 1-of-1, what you see is what we have!"
   },
   {
-    title: "2. Reserve It Fast ⚡",
-    content: "Found a gem? Click 'Reserve Now' immediately. This holds the item for you for 24 hours so no one else can buy it."
+    title: "2. Add to Cart 🛒",
+    content: "Found a gem? Click 'Add to Cart'. You can add multiple items and check them out all at once."
   },
   {
-    title: "3. Pay via GCash 💸",
-    content: "After reserving, you'll see our GCash details. Send your payment and PM the screenshot to our Facebook Page to confirm your order."
+    title: "3. Easy Checkout ⚡",
+    content: "Fill in your shipping details (we can save them for next time!) and pay via GCash using our QR code. Input your reference number, and you're set!"
   }
 ]
 

@@ -11,16 +11,18 @@ interface Order {
   customer_phone: string
   customer_address: string
   status: string
+  payment_reference: string
   product: {
     title: string
     price: number
   }
-}
+}    
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [processingId, setProcessingId] = useState<number | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const fetchOrders = async () => {
     setLoading(true)
@@ -100,7 +102,15 @@ export default function AdminOrders() {
           </div>
 
           <div class="row">
-            <div class="label">Amount Due (COD)</div>
+            <div class="label">Payment Status</div>
+            ${order.payment_reference 
+              ? `<div class="value">PAID - GCash Ref: ${order.payment_reference}</div>`
+              : `<div class="value">Pending / COD</div>`
+            }
+          </div>
+
+          <div class="row">
+            <div class="label">Amount</div>
             <div class="value" style="font-size: 24px; font-weight: bold;">₱${order.product?.price.toLocaleString()}</div>
           </div>
 
@@ -115,13 +125,39 @@ export default function AdminOrders() {
     printWindow.document.close()
   }
 
+  const filteredOrders = orders.filter(order => {
+    const term = searchTerm.toLowerCase()
+    return (
+      order.id.toString().includes(term) ||
+      order.customer_name.toLowerCase().includes(term) ||
+      order.customer_email.toLowerCase().includes(term) ||
+      (order.payment_reference && order.payment_reference.toLowerCase().includes(term))
+    )
+  })
+
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Orders & Reservations</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <h1 className="text-3xl font-bold text-gray-900">Orders & Reservations</h1>
+        <div className="relative w-full sm:w-64">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="Search orders..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
       
       <div className="bg-white shadow overflow-hidden sm:rounded-md">
         <ul className="divide-y divide-gray-200">
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <li key={order.id} className="bg-white hover:bg-gray-50 transition-colors duration-150">
               <div className="px-4 py-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
@@ -146,6 +182,11 @@ export default function AdminOrders() {
                         <p className="mt-1 text-xs bg-gray-50 p-1 rounded border border-gray-100">
                           📍 {order.customer_address}
                         </p>
+                      )}
+                      {order.payment_reference && (
+                         <div className="mt-2 text-indigo-700 font-semibold bg-indigo-50 p-2 rounded">
+                            GCash Ref: {order.payment_reference}
+                         </div>
                       )}
                     </div>
                     <p className="text-xs text-gray-400 mt-2">
@@ -193,8 +234,10 @@ export default function AdminOrders() {
               </div>
             </li>
           ))}
-          {orders.length === 0 && !loading && (
-            <li className="px-4 py-4 text-center text-gray-500">No orders yet.</li>
+          {filteredOrders.length === 0 && !loading && (
+            <li className="px-4 py-8 text-center text-gray-500">
+               {searchTerm ? 'No orders matching your search.' : 'No orders yet.'}
+            </li>
           )}
         </ul>
       </div>
